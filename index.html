@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思誠國際 2026 秋季線上特賣會</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FFFDF9;
+            --primary-pink: #FFB7C5;
+            --primary-yellow: #FFF3B0;
+            --accent-mint: #B9E3DE;
+            --card-bg: #FFFFFF;
+            --text-main: #4A4A4A;
+            --price-red: #E65A5A;
+            --border-radius: 20px;
+            --shadow-soft: 0 8px 24px rgba(185, 227, 222, 0.25);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Zen Maru Gothic', 'Microsoft JhengHei', sans-serif; }
+        body { background-color: var(--bg-cream); color: var(--text-main); padding-bottom: 100px; }
+        header { background: linear-gradient(135deg, #FFF3B0 0%, #FFB7C5 50%, #B9E3DE 100%); padding: 40px 20px; text-align: center; border-bottom-left-radius: 35px; border-bottom-right-radius: 35px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        header h1 { font-size: 2.2rem; color: #333; margin-bottom: 10px; font-weight: 900; }
+        header p { font-size: 1.05rem; color: #555; background: rgba(255, 255, 255, 0.7); display: inline-block; padding: 6px 18px; border-radius: 20px; backdrop-filter: blur(5px); }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+        
+        .filter-section { background: #FFF; border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow-soft); margin-bottom: 25px; }
+        .search-container { margin: 0 auto 15px; max-width: 500px; }
+        .search-input { width: 100%; padding: 14px 20px; border-radius: 30px; border: 2px solid #E2E8F0; outline: none; font-size: 1rem; background: #FFF; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: border-color 0.3s; }
+        .search-input:focus { border-color: var(--primary-pink); }
+        
+        .filter-group { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+        .filter-label { font-weight: 700; font-size: 0.95rem; color: #555; white-space: nowrap; min-width: 70px; }
+        
+        .category-nav, .brand-nav { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+        .cat-btn, .brand-btn { background: #FFF; border: 2px solid var(--accent-mint); padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+        .cat-btn:hover, .cat-btn.active { background: var(--accent-mint); color: #2D5F5D; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(185, 227, 222, 0.4); }
+        
+        .brand-btn { border-color: var(--primary-pink); }
+        .brand-btn:hover, .brand-btn.active { background: var(--primary-pink); color: #8A2B3D; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 183, 197, 0.4); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 25px; }
+        .product-card { background: var(--card-bg); border-radius: var(--border-radius); padding: 18px; box-shadow: var(--shadow-soft); border: 1px solid #F0F0F0; display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(185, 227, 222, 0.4); }
+        .badge-discount { position: absolute; top: 15px; right: 15px; background: #FF758C; color: white; font-weight: 700; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; }
+        .item-category-tag { font-size: 0.8rem; color: #888; background: #F3F4F6; display: inline-block; padding: 3px 10px; border-radius: 10px; margin-bottom: 8px; width: fit-content; }
+        .product-name { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 10px; color: #2D3748; min-height: 2.8em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-info { font-size: 0.82rem; color: #718096; margin-bottom: 12px; }
+        .price-box { display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 10px; border-top: 1px dashed #E2E8F0; }
+        .price-orig { text-decoration: line-through; color: #A0AEC0; font-size: 0.85rem; }
+        .price-sale { color: var(--price-red); font-size: 1.35rem; font-weight: 900; }
+        .add-cart-btn { margin-top: 12px; width: 100%; background: linear-gradient(90deg, #FFB7C5, #FF9EAA); border: none; color: white; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+        .add-cart-btn:hover { opacity: 0.9; }
+        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2D3748; color: white; padding: 15px 30px; border-radius: 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; width: 90%; max-width: 600px; justify-content: space-between; }
+        .checkout-btn { background: #48BB78; color: white; border: none; padding: 10px 22px; border-radius: 20px; font-weight: 700; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🌸 思誠國際 2026 秋季線上特賣會 🌸</h1>
+    <p>全館專櫃保養 / 經典香氛 / 國際彩妝 折扣特惠中！</p>
+</header>
+
+<div class="container">
+    <div class="filter-section">
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜尋商品名稱或編號..." oninput="filterItems()">
+        </div>
+        
+        <!-- 分類篩選 -->
+        <div class="filter-group">
+            <span class="filter-label">🏷️ 商品類別：</span>
+            <div class="category-nav" id="catNav"></div>
+        </div>
+        
+        <!-- 品牌篩選 -->
+        <div class="filter-group">
+            <span class="filter-label">✨ 品牌篩選：</span>
+            <div class="brand-nav" id="brandNav"></div>
+        </div>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+</div>
+
+<div class="cart-bar">
+    <div>
+        <span>已選購：<strong id="cartCount" style="color: #FFB7C5;">0</strong> 件商品</span><br>
+        <span style="font-size: 0.85rem; color: #A0AEC0;">合計金額：<strong id="cartTotal" style="color: #68D391; font-size: 1.1rem;">$0</strong></span>
+    </div>
+    <button class="checkout-btn" onclick="alert('已完成清單選購！點擊確認即可列印或截圖。')">檢視訂購單</button>
+</div>
+
+<script>
+// 使用 fetch 讀取同目錄下的 items_data.json
+let itemsData = [];
+let currentCat = 'ALL';
+let currentBrand = 'ALL';
+let cart = {};
+
+function initApp() {
+    fetch('items_data.json')
+        .then(response => response.json())
+        .then(data => {
+            itemsData = data;
+            initCategoryNav();
+            initBrandNav();
+            renderProducts(itemsData);
+        })
+        .catch(err => {
+            console.error('資料載入失敗：', err);
+        });
+}
+
+// 初始化主分類導覽
+function initCategoryNav() {
+    const categories = ['ALL', ...new Set(itemsData.map(i => i.cat).filter(Boolean))];
+    const nav = document.getElementById('catNav');
+    nav.innerHTML = categories.map(c => `
+        <button class="cat-btn ${c === 'ALL' ? 'active' : ''}" onclick="selectCat('${c}', this)">
+            ${c === 'ALL' ? '全部類別' : c}
+        </button>
+    `).join('');
+}
+
+// 初始化品牌導覽（若 JSON 資料有 brand 欄位優先使用，否則抓取 subcat）
+function initBrandNav() {
+    const brands = ['ALL', ...new Set(itemsData.map(i => i.brand || i.subcat).filter(Boolean))];
+    const nav = document.getElementById('brandNav');
+    nav.innerHTML = brands.map(b => `
+        <button class="brand-btn ${b === 'ALL' ? 'active' : ''}" onclick="selectBrand('${b}', this)">
+            ${b === 'ALL' ? '全部品牌' : b}
+        </button>
+    `).join('');
+}
+
+function selectCat(cat, btn) {
+    currentCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterItems();
+}
+
+function selectBrand(brand, btn) {
+    currentBrand = brand;
+    document.querySelectorAll('.brand-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterItems();
+}
+
+function filterItems() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = itemsData.filter(item => {
+        const itemBrand = item.brand || item.subcat || '';
+        const matchesCat = (currentCat === 'ALL' || item.cat === currentCat);
+        const matchesBrand = (currentBrand === 'ALL' || itemBrand === currentBrand);
+        const matchesSearch = item.name.toLowerCase().includes(search) || item.code.toLowerCase().includes(search);
+        
+        return matchesCat && matchesBrand && matchesSearch;
+    });
+    renderProducts(filtered);
+}
+
+function addToCart(id) {
+    cart[id] = (cart[id] || 0) + 1;
+    updateCartUI();
+}
+
+function updateCartUI() {
+    let count = 0;
+    let total = 0;
+    itemsData.forEach(item => {
+        if (cart[item.id]) {
+            count += cart[item.id];
+            total += item.price_sale * cart[item.id];
+        }
+    });
+    document.getElementById('cartCount').innerText = count;
+    document.getElementById('cartTotal').innerText = '$' + total.toLocaleString();
+}
+
+function renderProducts(list) {
+    const grid = document.getElementById('productGrid');
+    if (!list || list.length === 0) {        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">查無符合條件的商品</div>';
+        return;
+    }
+    grid.innerHTML = list.map(item => `
+        <div class="product-card">
+            ${item.discount > 0 && item.discount < 10 ? `<div class="badge-discount">${item.discount} 折</div>` : ''}
+            <div>
+                <span class="item-category-tag">${item.cat} · ${item.brand || item.subcat}</span>
+                <div class="product-name" title="${item.name}">${item.name}</div>
+                <div class="product-info">
+                    <span>編號：${item.code}</span><br>
+                    <span>效期：${item.expiry}</span>
+                </div>
+            </div>
+            <div>
+                <div class="price-box">
+                    <span class="price-orig">NT$${item.price_orig.toLocaleString()}</span>
+                    <span class="price-sale">NT$${item.price_sale.toLocaleString()}</span>
+                </div>
+                <button class="add-cart-btn" onclick="addToCart(${item.id})">加入購物車</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+window.onload = initApp;
+</script>
+</body>
+</html>
